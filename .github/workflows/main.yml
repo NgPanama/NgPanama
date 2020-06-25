@@ -24,8 +24,9 @@ jobs:
       uses: actions/setup-node@master
       with:
         node-version: '10.x'
-    - name: Install & Build
+    - name: Install dependencies
       run: yarn install
+    - name: Build workspace Client
       run: yarn workspace client run  build
     - name: Deploy
       uses: w9jds/firebase-action@master
