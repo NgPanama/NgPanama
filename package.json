@@ -11,6 +11,7 @@
     },
     "dependencies": {
         "concurrently": "^5.2.0",
-        "@angular/cli": "^9.1.4"
+        "@angular/cli": "^9.1.4",
+        "@angular/core": "^9.1.4"
     }
 }
