@@ -1,17 +1,17 @@
 {
-    "private": true,
-    "name": "ecommerce",
-    "workspaces": [
-        "packages/*"
-    ],
-    "scripts": {
-        "client": "yarn workspace client start",
-        "api": "yarn workspace server start",
-        "start": "concurrently --kill-others-on-fail \"yarn server\"  \"yarn client\""
-    },
-    "dependencies": {
-        "concurrently": "^5.2.0",
-        "@angular/cli": "^9.1.4",
-        "@angular/core": "^9.1.4"
-    }
+  "private": true,
+  "name": "ecommerce",
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "client": "yarn workspace client start",
+    "api": "yarn workspace server start",
+    "start": "concurrently --kill-others-on-fail \"yarn server\"  \"yarn client\""
+  },
+  "dependencies": {
+    "concurrently": "^5.2.0",
+    "@angular/cli": "^10.0.0",
+    "@angular/core": "^10.0.0"
+  }
 }
