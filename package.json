@@ -10,8 +10,17 @@
     "start": "concurrently --kill-others-on-fail \"yarn server\"  \"yarn client\""
   },
   "dependencies": {
-    "concurrently": "^5.2.0",
     "@angular/cli": "^10.0.0",
-    "@angular/core": "^10.0.0"
+    "@angular/common": "^10.0.0",
+    "@angular/core": "^10.0.0",
+    "@angular/fire": "^6.0.2",
+    "@angular/platform-browser": "^10.0.0",
+    "@angular/platform-browser-dynamic": "^10.0.0",
+    "concurrently": "^5.2.0",
+    "firebase": "7.15.4",
+    "fsevents": "^2.1.3",
+    "rxjs": "^6.5.5",
+    "zone.js": "^0.10.3",
+    "firebase-tools":"^8.4.3"
   }
 }
