@@ -10,6 +10,7 @@
         "start": "concurrently --kill-others-on-fail \"yarn server\"  \"yarn client\""
     },
     "dependencies": {
-        "concurrently": "^5.2.0"
+        "concurrently": "^5.2.0",
+        "@angular/cli": "^9.1.4"
     }
 }
