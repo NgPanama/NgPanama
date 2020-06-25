@@ -1,30 +1,28 @@
 # Nombre del Action
 name: CI
+
 # Cuando activamos el action
 on:
   push:
     branches: [ master ]
   pull_request:
     branches: [ master ]
+
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
   firebase-deploy:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
+    
     steps:
     - name: Checkout
-    - uses: actions/checkout@master@v2
-      with:
-        persist-credentials: false
-    - name: Use Node.js 10.x
+      uses: actions/checkout@master
     - uses: actions/setup-node@master
       with:
         node-version: '10.x'
-    - name: Build
     - run: yarn install
     - run: yarn workspace client run  build
-    - name: Deploy
     - uses: w9jds/firebase-action@master
       with:
         args: deploy --only hosting
