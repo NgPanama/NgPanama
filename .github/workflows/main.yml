@@ -22,7 +22,7 @@ jobs:
     - uses: actions/setup-node@master
       with:
         node-version: '10.x'
-    - run: npm install
+    - run: yarn install
     - run: yarn workspace client run  deploy
     - uses: w9jds/firebase-action@master
       with:
