@@ -11,5 +11,21 @@ button {
 }
 
 main {
-  padding: 20px 20%;
+  padding: 20px 10%;
+}
+
+
+.toolbar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  color: white;
+  font-weight: 600;
+  img {
+    margin: 0 16px;
+  }
 }
