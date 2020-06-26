@@ -10,29 +10,29 @@ on:
 
 jobs:
   # Jobs
-  firebase-deploy:
-    runs-on: ubuntu-latest
-    steps:
-    - name: Checkout
-      uses: actions/checkout@v2
-      with:
-        persist-credentials: false
-    - name: Use Node.js 10.x
-      uses: actions/setup-node@master
-      with:
-        node-version: '10.x'
-    - name: Install dependencies
-      run: yarn install
-    - name: Build workspace Client
-      run: yarn workspace client run  build
-    - name: Deploy to Firebase
-      uses: w9jds/firebase-action@master
-      with:
-        args: deploy --only hosting
-      env:
-        FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
-        PROJECT_ID: ${{ secrets.PROJECT_ID }}
-        PROJECT_PATH: ${{ secrets.PROJECT_PATH }}
+  # firebase-deploy:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #   - name: Checkout
+  #     uses: actions/checkout@v2
+  #     with:
+  #       persist-credentials: false
+  #   - name: Use Node.js 10.x
+  #     uses: actions/setup-node@master
+  #     with:
+  #       node-version: '10.x'
+  #   - name: Install dependencies
+  #     run: yarn install
+  #   - name: Build workspace Client
+  #     run: yarn workspace client run  build
+  #   - name: Deploy to Firebase
+  #     uses: w9jds/firebase-action@master
+  #     with:
+  #       args: deploy --only hosting
+  #     env:
+  #       FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+  #       PROJECT_ID: ${{ secrets.PROJECT_ID }}
+  #       PROJECT_PATH: ${{ secrets.PROJECT_PATH }}
   sonarcloud:
     runs-on: ubuntu-latest
     steps:
