@@ -1,0 +1,9 @@
+node_modules
+dist
+npm-debug.log
+.idea
+.serverless
+types.d.ts
+ts-files.txt
+db
+.dynamodb
