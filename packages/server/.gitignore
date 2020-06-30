@@ -7,3 +7,4 @@ types.d.ts
 ts-files.txt
 db
 .dynamodb
+coverage
