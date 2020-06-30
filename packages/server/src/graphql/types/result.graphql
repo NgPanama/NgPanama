@@ -1,0 +1,6 @@
+
+type Result {
+ message: String
+ code: Int
+ error: String 
+}

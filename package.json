@@ -6,7 +6,8 @@
   ],
   "scripts": {
     "client": "yarn workspace client start",
-    "api": "yarn workspace server start",
+    "server": "yarn workspace server start",
+    "postinstall": "yarn workspace server installdb",
     "start": "concurrently --kill-others-on-fail \"yarn server\"  \"yarn client\""
   },
   "dependencies": {

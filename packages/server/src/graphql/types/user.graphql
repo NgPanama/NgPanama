@@ -1,0 +1,39 @@
+
+type User {
+    id : String
+    email: String
+    emailVerified: Boolean
+    passwordHash: String
+    username: String            
+    desabled: Boolean    
+    createdAt: Date @formatDate
+    updatedAt: Date @formatDate
+}
+
+type LoginResponse {
+    token: String
+    user: User
+}
+
+input UserInput {
+    id : String
+    email: String
+    emailVerified: Boolean
+    passwordHash: String
+    username: String            
+    desabled: Boolean    
+    createdAt: Date
+    updatedAt: Date    
+   }
+
+# the schema allows the following query:
+type Query {
+    user(email: String): User @isAuthUser
+    users: [User] @isAuthUser
+}
+
+type Mutation {
+    register(user: UserInput!): Result! @isAuthUser
+    login(username: String!, password: String): LoginResponse!
+    activate(password: String): Result @isAuthUser    
+}

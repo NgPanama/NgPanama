@@ -1,0 +1,8 @@
+{
+    "Template": {
+        "TemplateName": "Forgot",
+        "SubjectPart": "Reestablecer su contraseña",
+        "HtmlPart": "<!doctype html><html><head><meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\"></head><body><img width=250 height=60 src=\"https://github.com/NgPanama/NgPanama/blob/master/packages/client/src/assets/logos-ng-panama-512.png\"><h2>&#161;Le damos la bienvenida a NgPanama!</h2><br />Para activar su cuenta favor de dar click en el siguiente enlace <a href=\"https://www.ngpanama.org\" target=\"_blank\"><span>Activar</span></a></body></html>",
+        "TextPart": "Reestablecer su contraseña"
+    }
+}

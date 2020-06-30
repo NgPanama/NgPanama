@@ -1,0 +1,96 @@
+service: NgPanama-apollo
+
+plugins:
+  - serverless-dynamodb-local
+  - serverless-offline
+  - serverless-dotenv-plugin
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  stage: ${env:DEPLOY_STAGE}
+  region: us-west-2
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:DescribeTable
+        - dynamodb:Query
+        - dynamodb:Scan
+        - dynamodb:GetItem
+        - dynamodb:PutItem
+        - dynamodb:UpdateItem
+        - dynamodb:DeleteItem          
+        - dynamodb:BatchWriteItem
+        - ses:SendTemplatedEmail
+      Resource: 
+        - 'arn:aws:dynamodb:us-west-2:*:*'
+        - 'arn:aws:ses:us-west-2:*:*'
+  environment:
+    JWT_SECRET: ${self:custom.secrets.jwtSecret}
+    JWT_EXPIRES: ${self:custom.expiresToken}
+    DEPLOY_STAGE: ${env:DEPLOY_STAGE}
+    USERS_TABLE_NAME: ${self:custom.usersTable}
+custom:
+  serverless-offline:    
+    port: 3001
+  usersTable: "${self:provider.stage}_Users"  
+  secrets: ${file(src/configs/secrets.json)}
+  expiresToken: '10m'
+  authorizer:
+     name: authorization
+     type: 'TOKEN'
+     identitySource: method.request.header.Authorization
+     resultTtlInSeconds: 0
+  dynamodb:
+    stages:
+      - prod
+    start:
+      port: 8000
+      inMemory: true
+      migration: true  
+      dbPath: './db'
+    migration:
+      dir: ./config/migrations
+
+functions:
+  graphql:
+    handler: dist/functions/graphql.handler
+    events:
+      - http:
+          path: graphql
+          method: any
+          cors: true  
+package:
+  exclude:    
+    - src/**    
+    - .dynamodb/** 
+    - db/**
+
+resources:
+  Resources:
+    UsersDynamoDbTable:
+      Type: 'AWS::DynamoDB::Table'
+      DeletionPolicy: Delete
+      Properties:
+        AttributeDefinitions:
+          -
+            AttributeName: id
+            AttributeType: S
+          -
+            AttributeName: email
+            AttributeType: S          
+        KeySchema:
+          -
+            AttributeName: id
+            KeyType: HASH              
+        GlobalSecondaryIndexes:
+          -
+            IndexName: emailIndex
+            KeySchema:
+              -
+                AttributeName: email
+                KeyType: HASH
+            Projection:
+              ProjectionType: ALL
+        BillingMode: PAY_PER_REQUEST      
+        TableName: ${self:custom.usersTable}          
