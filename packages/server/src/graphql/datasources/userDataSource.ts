@@ -1,14 +1,14 @@
-import { QueryOutput } from 'aws-sdk/clients/dynamodb';
+import {QueryOutput} from 'aws-sdk/clients/dynamodb';
 import NotFoundError from '../../lib/errors/NotFoundError';
-import { DataSource } from 'apollo-datasource';
-import { Injectable } from 'injection-js';
+import {DataSource} from 'apollo-datasource';
+import {Injectable} from 'injection-js';
 import AwsSdkFactory from '../../lib/factories/AwsSdkFactory';
-import { DynamoDB } from 'aws-sdk';
-import { v4 as uuidV4 } from 'uuid';
+import {DynamoDB} from 'aws-sdk';
+import {v4 as uuidV4} from 'uuid';
 import AuthService from '../../lib/auth';
-import { User, LoginResponse, UserInput } from '../../interfaces/types';
+import {User, LoginResponse, UserInput} from '../../interfaces/types';
 import RegisteredUserError from '../../lib/errors/RegisteredUserError';
-import { getDate } from '../../lib/timezone';
+import {getDate} from '../../lib/timezone';
 
 @Injectable()
 export class UserDataSource extends DataSource {
@@ -21,12 +21,12 @@ export class UserDataSource extends DataSource {
 
   public findAll = async () => {
     const params = {
-      TableName: this.getUsersTableName()
+      TableName: this.getUsersTableName(),
     };
     const dbResponse: QueryOutput = await this.dynamoDbDocumentClient.scan(params).promise();
 
     return dbResponse.Items;
-  }
+  };
 
   public find = async (email: string) => {
     const params = {
@@ -34,12 +34,12 @@ export class UserDataSource extends DataSource {
       IndexName: 'emailIndex',
       KeyConditionExpression: 'email = :email',
       ExpressionAttributeValues: {
-        ':email': email
+        ':email': email,
       },
       ScanIndexForward: true,
       Limit: 1,
       ConsistentRead: false,
-      Select: 'ALL_ATTRIBUTES'
+      Select: 'ALL_ATTRIBUTES',
     };
 
     const dbResponse: QueryOutput = await this.dynamoDbDocumentClient.query(params).promise();
@@ -55,7 +55,7 @@ export class UserDataSource extends DataSource {
     const user: User = dbResponse.Items[0];
 
     return user;
-  }
+  };
 
   public register = async (user: UserInput): Promise<LoginResponse> => {
     const userProfile: User = await this.find(user.email);
@@ -68,8 +68,8 @@ export class UserDataSource extends DataSource {
       Item: {
         ...user,
         id: uuidV4(),
-        passwordHash: await AuthService.generatePasswordHash(user.passwordHash)
-      }
+        passwordHash: await AuthService.generatePasswordHash(user.passwordHash),
+      },
     };
 
     await this.dynamoDbDocumentClient.put(params).promise();
@@ -77,11 +77,11 @@ export class UserDataSource extends DataSource {
     const token = await AuthService.sign(user, '2d');
     const result: LoginResponse = {
       token,
-      user: user as User
+      user: user as User,
     };
 
     return result;
-  }
+  };
 
   public login = async (username: string, password: string) => {
     const user: User = await this.find(username);
@@ -100,29 +100,29 @@ export class UserDataSource extends DataSource {
 
     const result: LoginResponse = {
       token,
-      user
+      user,
     };
 
     return result;
-  }
+  };
 
   public activate = async (username: string, password: string) => {
     const user: User = await this.find(username);
     const params = {
       TableName: this.getUsersTableName(),
       Key: {
-        id: user.id
+        id: user.id,
       },
       UpdateExpression: 'set passwordHash = :pw, updatedAt=:ed, emailVerified=:ev',
       ExpressionAttributeValues: {
         ':pw': await AuthService.generatePasswordHash(password),
         ':ed': getDate(),
-        ':ev': true
+        ':ev': true,
       },
-      ReturnValues: 'UPDATED_NEW'
+      ReturnValues: 'UPDATED_NEW',
     };
     await this.dynamoDbDocumentClient.update(params).promise();
-  }
+  };
 
   /**
    * Acquire the name of the user table of the execution environment

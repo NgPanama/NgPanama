@@ -1,7 +1,7 @@
 /**
  * 401 Unauthorized
  * Se usa cuando la autenticación falla
- * 
+ *
  */
 export default class UnauthorizedError extends Error {
   /**

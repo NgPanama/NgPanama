@@ -1,6 +1,6 @@
 import * as bcrypt from 'bcryptjs';
 import * as jwt from 'jsonwebtoken';
-import { UserInput } from '../../interfaces/types';
+import {UserInput} from '../../interfaces/types';
 
 interface IVerify {
   Id: string;
@@ -22,7 +22,7 @@ export default class AuthService {
     const passwordHash: string = await bcrypt.hash(password, 10);
 
     return passwordHash;
-  }
+  };
 
   /**
    * Compare Password to Password Input
@@ -32,20 +32,20 @@ export default class AuthService {
    */
   public static comparePassword = async (passwordInput: string, password: string): Promise<boolean> => {
     return bcrypt.compare(passwordInput, password);
-  }
+  };
 
   public static sign = async (user: UserInput, expires: string): Promise<string> => {
     return jwt.sign(
       {
         Id: user.id,
-        Email: user.email
+        Email: user.email,
       },
       process.env.JWT_SECRET,
       {
-        expiresIn: expires
+        expiresIn: expires,
       }
     );
-  }
+  };
 
   public static getUser = async (token: string) => {
     try {
@@ -55,14 +55,14 @@ export default class AuthService {
         return {
           Id: verify.Id,
           Email: verify.Email,
-          Token: token
+          Token: token,
         };
       }
 
       return {
         Id: null,
         Email: null,
-        Token: null
+        Token: null,
       };
     } catch (err) {
       if (err.message === 'jwt expired') {
@@ -73,10 +73,10 @@ export default class AuthService {
         Id: null,
         Email: null,
         Token: null,
-        err
+        err,
       };
     }
-  }
+  };
 
   public static getUserName = async (token: string) => {
     if (token) {
@@ -85,25 +85,25 @@ export default class AuthService {
       return {
         Id: verify.Id,
         Email: verify.Email,
-        Token: token
+        Token: token,
       };
     }
 
     return {
       Id: null,
       Email: null,
-      Token: null
+      Token: null,
     };
-  }
+  };
 
   public static reSign = async (token: string, expires: string) => {
-    const decoded: any = jwt.decode(token, { complete: true });
+    const decoded: any = jwt.decode(token, {complete: true});
     const user: UserInput = {
       id: decoded.payload.Id,
-      email: decoded.payload.Email
+      email: decoded.payload.Email,
     };
     const newtoken = await AuthService.sign(user, expires);
 
     return AuthService.getUser(newtoken);
-  }
+  };
 }

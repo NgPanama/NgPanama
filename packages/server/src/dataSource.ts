@@ -1,11 +1,9 @@
-import { Injector } from 'injection-js';
-import {
-  UserDataSource,
-} from './graphql/datasources';
-import { IAppDataSource } from './interfaces/IAppDataSource';
+import {Injector} from 'injection-js';
+import {UserDataSource} from './graphql/datasources';
+import {IAppDataSource} from './interfaces/IAppDataSource';
 
 export const getDataSources = (injector: Injector): IAppDataSource => {
-  return {    
+  return {
     UserDataSource: injector.get(UserDataSource),
   };
 };

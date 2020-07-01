@@ -7,7 +7,6 @@
  * @link https://tools.ietf.org/html/rfc5424
  */
 export class Logger {
-    
   /**
    * 0 Emergency (RFC5424)
    * Used when a serious error occurs when the system can not run

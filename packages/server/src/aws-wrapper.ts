@@ -1,6 +1,6 @@
 import 'module-alias/register';
 import injector from './core/injector';
-import { Server } from './server';
+import {Server} from './server';
 
 let server: Server;
 server = injector.get(Server);
