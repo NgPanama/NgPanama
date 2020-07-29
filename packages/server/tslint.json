@@ -29,8 +29,9 @@
 		"ordered-imports": false,
 		"no-bitwise": false,
 		"semicolon": {
-			"options": [
-				"always"
+			"options": [				
+				"always",
+				"ignore-bound-class-methods"
 			]
 		},
 		"quotemark": [

@@ -3,5 +3,5 @@ import {FormattableDateDirective} from './FormattableDate';
 
 export const schemaDirectives = {
   isAuthUser: IsAuthUserDirective,
-  formatDate: FormattableDateDirective
+  formatDate: FormattableDateDirective,
 };

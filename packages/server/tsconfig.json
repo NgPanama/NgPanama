@@ -12,6 +12,7 @@
     "target": "es2015",
     "skipLibCheck": true,
     "emitDecoratorMetadata": true,
+    "noUnusedLocals": true,
     "lib": [
       "es6",
       "es2017",

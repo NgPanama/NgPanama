@@ -9,10 +9,10 @@ export class FormattableDateDirective extends SchemaDirectiveVisitor {
 
     field.args.push({
       name: 'format',
-      type: GraphQLString
+      type: GraphQLString,
     });
 
-    field.resolve = async function(source, {format, ...otherArgs}, context, info) {
+    field.resolve = async function (source, {format, ...otherArgs}, context, info) {
       const date = await resolve.call(this, source, otherArgs, context, info);
 
       if (!date) {

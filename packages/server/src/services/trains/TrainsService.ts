@@ -12,8 +12,8 @@ export class TrainsService {
     return [
       {
         _id: '1234',
-        name: name || 'sampleTrain'
-      }
+        name: name || 'sampleTrain',
+      },
     ];
   }
 }

@@ -10,12 +10,12 @@ export class Setting extends AbstractSetting {
     super();
     this.settings = {
       server: {
-        port: process.env.serverPort || '8080'
+        port: process.env.serverPort || '8080',
       },
       log: {
         filename: 'log.txt',
-        filedir: path.join(__dirname, '../../log')
-      }
+        filedir: path.join(__dirname, '../../log'),
+      },
     };
   }
 

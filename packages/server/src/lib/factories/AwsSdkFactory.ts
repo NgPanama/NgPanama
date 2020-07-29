@@ -4,10 +4,9 @@ import Environment from '../infrastructures/Environment';
 
 /**
  * AwsSdkFactory
- * 
+ *
  */
 export default class AwsSdkFactory {
-
   /**
    * Generate DynamoDB.DocumentClient
    *

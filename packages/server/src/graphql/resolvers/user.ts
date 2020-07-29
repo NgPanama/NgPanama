@@ -4,7 +4,7 @@ import {
   LoginResponse,
   Result,
   MutationActivateArgs,
-  QueryUserArgs,  
+  QueryUserArgs,
 } from '../../interfaces/types';
 import IContext from '../../interfaces/IContext';
 import AuthService from '../../lib/auth';
@@ -21,7 +21,7 @@ const resolveFunctions = {
       const result = await context.dataSources.UserDataSource.findAll();
 
       return result;
-    }
+    },
   },
   Mutation: {
     register: async (_, args: MutationRegisterArgs, context: IContext) => {
@@ -58,8 +58,8 @@ const resolveFunctions = {
       }
 
       return result;
-    }
-  }
+    },
+  },
 };
 
 export default resolveFunctions;

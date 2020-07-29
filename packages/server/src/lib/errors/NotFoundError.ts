@@ -4,14 +4,13 @@
  *
  */
 export default class NotFoundError extends Error {
-    /**
-     * constructor
-     *
-     * @param message
-     */
-    constructor(message: string = 'Not Found') {
-      super(message);
-      this.name = 'NotFoundError';
-    }
+  /**
+   * constructor
+   *
+   * @param message
+   */
+  constructor(message: string = 'Not Found') {
+    super(message);
+    this.name = 'NotFoundError';
   }
-  
+}

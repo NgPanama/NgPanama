@@ -1,7 +1,7 @@
 /**
  * 500 Internal Server Error
  * Úselo cuando ocurra un error inesperado.
- * 
+ *
  */
 export default class RegisteredUserError extends Error {
   /**

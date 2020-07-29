@@ -24,22 +24,22 @@ export class SesClient {
       Destination: {
         BccAddresses: bccEmailAddresses,
         CcAddresses: ccEmailAddresses,
-        ToAddresses: toEmailAddresses
+        ToAddresses: toEmailAddresses,
       },
       Message: {
         Body: {
           Text: {
             Data: bodyData,
-            Charset: bodyCharset
-          }
+            Charset: bodyCharset,
+          },
         },
         Subject: {
           Data: subjectdata,
-          Charset: subjectCharset
-        }
+          Charset: subjectCharset,
+        },
       },
       Source: sourceEmail,
-      ReplyToAddresses: replyToAddresses
+      ReplyToAddresses: replyToAddresses,
     };
 
     ses.sendEmail(emailParams, (err, data) => {
@@ -60,13 +60,13 @@ export class SesClient {
     const emailParams = {
       Template: options.template,
       Destination: {
-        ToAddresses: options.toEmailAddresses
+        ToAddresses: options.toEmailAddresses,
       },
       Source: options.sourceEmail,
-      TemplateData: JSON.stringify(options.variables)
+      TemplateData: JSON.stringify(options.variables),
     };
     console.log(emailParams);
 
     return ses.sendTemplatedEmail(emailParams).promise();
-  }
+  };
 }

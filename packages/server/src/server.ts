@@ -1,26 +1,24 @@
 import schema from './graphql/schema/schema';
-import { AbstractLogger } from './core/logger/AbstractLogger';
-import { AbstractSetting } from './core/config/AbstractSetting';
-import { IAppContext } from './interfaces/IAppContext';
-import { Injectable, Injector } from 'injection-js';
-import { getContext } from './context';
-import { getDataSources } from './dataSource';
+import {AbstractLogger} from './core/logger/AbstractLogger';
+import {IAppContext} from './interfaces/IAppContext';
+import {Injectable, Injector} from 'injection-js';
+import {getContext} from './context';
+import {getDataSources} from './dataSource';
 import AuthService from './lib/auth';
 
 import * as cors from 'cors';
 import * as express from 'express';
-import { ApolloServer } from 'apollo-server-express';
+import {ApolloServer} from 'apollo-server-express';
 import * as serverless from 'serverless-http';
 
 @Injectable()
 export class Server {
   private app: express.Express;
   private apolloServer: ApolloServer;
-  private graphqlPort: number;
   private appContext: IAppContext;
   private dataSources: any;
   private handler: any;
-  constructor(private logger: AbstractLogger, private setting: AbstractSetting) { }
+  constructor(private logger: AbstractLogger) {}
 
   public initContext(injector: Injector) {
     this.appContext = getContext(injector);
@@ -30,7 +28,6 @@ export class Server {
   public initServer(injector: Injector) {
     this.initContext(injector);
     this.logger.info('Starting graphql server...');
-    this.graphqlPort = parseInt(this.setting.config.server.port, 10);
     this.app = express().use('*', cors());
     this.createApolloServer();
   }
@@ -39,7 +36,7 @@ export class Server {
     return this.handler;
   }
 
-  private context = async ({ res, req }) => {
+  private context = async ({res, req}) => {
     const services: IAppContext = this.appContext;
     const tokenWithBearer = req.headers.Authorization || req.headers.authorization || '';
     const token = tokenWithBearer.split(' ')[1];
@@ -54,9 +51,9 @@ export class Server {
       token: user.Token,
       services,
       res,
-      req
+      req,
     };
-  }
+  };
 
   private createApolloServer() {
     const graphqlRoutePrefix = process.env.IS_OFFLINE ? '' : '/prod';
@@ -66,18 +63,18 @@ export class Server {
       context: this.context,
       dataSources: () => this.dataSources,
       playground: {
-        endpoint: graphqlRoutePrefix + '/graphql'
-      }
+        endpoint: graphqlRoutePrefix + '/graphql',
+      },
     });
     this.apolloServer.applyMiddleware({
       app: this.app,
       bodyParserConfig: {
-        limit: '1000mb'
-      }
+        limit: '1000mb',
+      },
     });
 
     this.app.get('/', (req, res) => {
-      res.writeHead(200, { Connection: 'close' });
+      res.writeHead(200, {Connection: 'close'});
       res.end('Apollo GraphQL up and running...');
     });
 
