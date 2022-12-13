@@ -61,7 +61,7 @@
     "core-js": "3.6.5",
     "cors": "^2.8.5",
     "elasticsearch": "16.7.1",
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "graphql": "^15.2.0",
     "graphql-tools": "6.0.10",
     "http-aws-es": "^6.0.0",
