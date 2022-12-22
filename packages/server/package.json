@@ -68,7 +68,7 @@
     "injection-js": "^2.3.0",
     "isomorphic-fetch": "^2.2.1",
     "isomorphic-form-data": "^2.0.0",
-    "jsonwebtoken": "^8.5.1",
+    "jsonwebtoken": "^9.0.0",
     "merge-graphql-schemas": "1.7.8",
     "module-alias": "2.2.2",
     "moment-timezone": "^0.5.31",
